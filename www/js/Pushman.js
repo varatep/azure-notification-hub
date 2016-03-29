@@ -2,10 +2,10 @@
 
 
 ///a "class" wrapping the PushPlug and AzureNotificationHub plugins in a simple service for consumers.
-///the two plugins are used together because the actual notifications only work with PushPlug, and only the NotificationsHub 
+///the two plugins are used together because the actual notifications only work with PushPlug, and only the NotificationsHub
 ///plugin works with Azure Notifications Hub for tag registration.
 var Pushman = {
-    
+
     Initialize: function (hubConnString, hubName, gcmSenderId, callbackRegistered, callbackUnRegistered, callbackInlineNotification, callbackBackgroundNotification, callbackError) {
 
         //store connection and callback information on app startup for Push Registration later
@@ -32,7 +32,7 @@ var Pushman = {
         Pushman.Push = window.plugins.pushNotification;
 
         //register depending on device being run
-        if (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos") {
+        if ((typeof device !== 'undefined') && (device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos")) {
 
             //android
             Pushman.Push.register(Pushman.onRegistered, Pushman.onError,
